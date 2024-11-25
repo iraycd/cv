@@ -134,6 +134,32 @@ export default function Page() {
                 <CardContent className="mt-2 text-xs print:text-[10px]">
                   {work.description}
                 </CardContent>
+                {/* Achievement bullet points */}
+                  {work.achievements && (
+                    <ul className="list-disc list-inside mb-2 mt-2 text-xs print:text-[10px]">
+                      {work.achievements.map((achievement, index) => (
+                        <li key={index}>{achievement}</li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {/* Tech stack */}
+                  {work.techStack && work.techStack.length > 0 && (
+                    <div className="mt-2">
+                      <p className="font-semibold mb-1">Technologies:</p>
+                      <div className="flex flex-wrap gap-1 mt-2 text-xs print:text-[10px]">
+                        {work.techStack.map((tech, index) => (
+                          <Badge
+                            variant="secondary"
+                            key={index}
+                            className="text-xs print:text-[8px]"
+                          >
+                            {tech}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  )}
               </Card>
             );
           })}
@@ -174,7 +200,7 @@ export default function Page() {
         </Section>
 
         <Section className="print-force-new-page scroll-mb-16">
-          <h2 className="text-xl font-bold">Projects</h2>
+          <h2 className="text-xl font-bold">Projects/Interviews</h2>
           <div className="-mx-3 grid grid-cols-1 gap-3 print:grid-cols-3 print:gap-2 md:grid-cols-2 lg:grid-cols-3">
             {RESUME_DATA.projects.map((project) => {
               return (
@@ -183,6 +209,7 @@ export default function Page() {
                   title={project.title}
                   description={project.description}
                   tags={project.techStack}
+                  inactive={project.inactive}
                   link={"link" in project ? project.link.href : undefined}
                 />
               );
